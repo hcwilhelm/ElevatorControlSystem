@@ -47,8 +47,8 @@ state has changed. In this simulation the control system waits for all elevators
 move syncronized. But it would also be possible to have all elevators move independly from each other and then we
 won't need to wait until all elevators have done there step.
 
-To solve the problem that each person may wants to go to different floor this implementation uses a
-modified PickUp request witch holds a ElevatorRide object to encode where the person wants to be picked up
+To solve the problem that each person may want to go to different floor this implementation uses a
+modified PickUp request witch holds an ElevatorRide object to encode where the person wants to be picked up
 and and where the person wants to drop off.
 
 The ElevatorControlSystemActor schedules new pickup request to an alevator in an optimized
