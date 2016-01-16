@@ -47,7 +47,7 @@ in sequential order at the end the actor system is terminated and the program st
 
 When the `ElevatorControlSystemActor` receives a `Status` message it will send back a map of
 all elevator states. The map has the following type `Map[ElevatorID, ElevatorState]` where
-`ElevatorID` and `ElevatorState` has the following structure
+`ElevatorID` and `ElevatorState` has the following implementation.
 
 
 ```
@@ -56,6 +56,10 @@ case class ElevatorID(underlaying: Int) extends AnyVal
 
 ```
 case class ElevatorState(currentFloor: FloorID, goalFloor: FloorID, direction: Direction, pickUpQueue: Seq[ElevatorRide], dropOffQueue: Seq[FloorID])
+```
+
+```
+case class ElevatorRide(from: FloorID, to: FloorID)
 ```
 
 Example output :
