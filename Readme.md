@@ -43,6 +43,30 @@ sbt test
 The main method shows one example simulation where multiple pick up, step and status commands happen
 in sequential order at the end the actor system is terminated and the program stops running.
 
+### Program output
+
+When the `ElevatorControlSystemActor` receives a `Status` message it will send back a map of
+all elevator states. The map has the following type `Map[ElevatorID, ElevatorState]` where
+`ElevatorID` and `ElevatorState` has the following structure
+
+
+```
+case class ElevatorID(underlaying: Int) extends AnyVal
+```
+
+```
+case class ElevatorState(currentFloor: FloorID, goalFloor: FloorID, direction: Direction, pickUpQueue: Seq[ElevatorRide], dropOffQueue: Seq[FloorID])
+```
+
+Example output :
+
+```
+(ElevatorID(1),ElevatorState(3,5,Up,Vector(ElevatorRide(4,8)),Vector(5)))
+(ElevatorID(2),ElevatorState(0,0,NoDirection,Vector(),Vector()))
+(ElevatorID(3),ElevatorState(0,0,NoDirection,Vector(),Vector()))
+(ElevatorID(4),ElevatorState(0,0,NoDirection,Vector(),Vector()))
+```
+
 ### Implementation Details
 
 The elevator control system and the elevators are implemented as __Akka__ actors. All elevators are
