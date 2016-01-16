@@ -17,7 +17,7 @@ Can you please use Scala to implement it? In the end, your control system should
 ###Project Structure
 
 Main code in src/main/scala
-        
+
 Test code in src/test/scala
 
 Interfaces (traits), domain specific case classes and objects are located in the package model. The actor
@@ -46,6 +46,10 @@ child actors of the elevator controll system end send an update messages to the 
 state has changed. In this simulation the control system waits for all elevators to perfom a step so all elevators
 move syncronized. But it would also be possible to have all elevators move independly from each other and then we
 won't need to wait until all elevators have done there step.
+
+To solve the problem that each person may wants to go to different floor this implementation uses a
+modified PickUp request witch holds a ElevatorRide object to encode where the person wants to be picked up
+and and where the person wants to drop off.
 
 The ElevatorControlSystemActor schedules new pickup request to an alevator in an optimized
 way it trys to find the elevator witch is moing towards the pickup location and witch has the neareast floor
@@ -76,7 +80,7 @@ Commands witch can be send to the ElevatorActor
 ###Possible improvements
 
 * Track how many passengers are loaded to an elevator and do a better load balancing
-* When an elevator stops move it to the most likely floor based on usaged patterns
+* When an elevator stops, move it to the most likely floor based on usaged patterns
 * A better solution to find the next goal floor
 * Command line interface for easy interaction or reading command sequence files
 * Elevator usage metrics as possible data source for advanced movement strategies
