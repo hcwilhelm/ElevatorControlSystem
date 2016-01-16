@@ -17,9 +17,10 @@ object Main extends App {
   implicit val timeout = Timeout(5.seconds)
 
   /**
-    * Elevator control system actor ref
+    * Elevator control system actor ref with numberOfElevators.
     */
-  val cs = actorSystem.actorOf(Props(new ElevatorControllSystemActor(4)), "ElevatorControllActor")
+  val numberOfElevators = 4
+  val cs = actorSystem.actorOf(Props(new ElevatorControllSystemActor(numberOfElevators)), "ElevatorControllActor")
 
   /**
     * Sending commands to the control system with the ask pattern to
@@ -59,6 +60,9 @@ object Main extends App {
     _ <- cs ? Step
     _ <- cs ? Step
     _ <- (cs ? Status).mapTo[Map[ElevatorID, ElevatorState]] map (_ foreach println)
-  } ()
+
+    _ <- Future(println)
+    _ <- actorSystem.terminate()
+  } (println("Good by"))
 
 }

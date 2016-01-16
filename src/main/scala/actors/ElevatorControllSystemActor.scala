@@ -33,7 +33,7 @@ class ElevatorControllSystemActor(numberOfElevators: Int) extends Actor with Act
   implicit val timeout = Timeout(5.seconds)
 
   /**
-    * Get initial elevator states
+    * Get initial elevator states and wait for all updates
     */
   val initialUpdate = Future.sequence(elevators.values.map(ref => (ref ? Status).mapTo[Update])) map (_ foreach {
     case Update(id, state) => elevatorStates = elevatorStates + (id -> state)
@@ -46,6 +46,14 @@ class ElevatorControllSystemActor(numberOfElevators: Int) extends Actor with Act
     *
     * It would be much better not to wait but I am not smart enough to find a
     * better sync model.
+    *
+    * A better soulution may be a an ElevatorControlSystemActor with two states.
+    * Every time a step is performed it will go to a WaitForUpdate state and in that
+    * state it will simply queue new command messages which will processed when the
+    * actor changes to Idle state.
+    *
+    * Or we can just run alll elevators in pure async way where each elevator is moving
+    * independently from all other elevators.
     *
     * @return
     */
