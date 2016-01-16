@@ -17,6 +17,7 @@ Can you please use Scala to implement it? In the end, your control system should
 ###Project Structure
 
 Main code in src/main/scala
+        
 Test code in src/test/scala
 
 Interfaces (traits), domain specific case classes and objects are located in the package model. The actor
@@ -67,7 +68,7 @@ Commands witch can be send to the ElevatorControlSystem Actor
 Commands witch can be send to the ElevatorActor
 
 ```
-* PickUp command (signal a new ride from floor to floor)
+* PickUp command (enqueu a new ride from floor to floor)
 * Status command (query elevator state)
 * Step command (force the elevator to move one step)
 ```
